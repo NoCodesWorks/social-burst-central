@@ -1,5 +1,6 @@
 
 import CreatePostForm from "@/components/create-post/CreatePostForm";
+import ContentIdeasAI from "@/components/create-post/ContentIdeasAI";
 
 export default function CreatePost() {
   return (
@@ -9,7 +10,14 @@ export default function CreatePost() {
         <p className="text-gray-500">Create and schedule content for your social media platforms.</p>
       </div>
       
-      <CreatePostForm />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          <CreatePostForm />
+        </div>
+        <div>
+          <ContentIdeasAI />
+        </div>
+      </div>
     </div>
   );
 }

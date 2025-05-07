@@ -3,6 +3,7 @@ import QuickStats from "@/components/dashboard/QuickStats";
 import UpcomingPosts from "@/components/dashboard/UpcomingPosts";
 import RecentActivity from "@/components/dashboard/RecentActivity";
 import PlatformPerformance from "@/components/dashboard/PlatformPerformance";
+import TrendRecommendations from "@/components/dashboard/TrendRecommendations";
 
 export default function Dashboard() {
   return (
@@ -18,6 +19,8 @@ export default function Dashboard() {
         <UpcomingPosts />
         <RecentActivity />
       </div>
+      
+      <TrendRecommendations />
       
       <PlatformPerformance />
     </div>

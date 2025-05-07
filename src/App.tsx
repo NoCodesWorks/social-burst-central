@@ -24,10 +24,13 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          {/* Public routes */}
+          <Route path="/" element={<Index />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/customize-dashboard" element={<CustomizeDashboard />} />
+          
+          {/* Protected routes with layout */}
           <Route path="/" element={<Layout />}>
-            <Route index element={<Index />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="calendar" element={<Calendar />} />
             <Route path="analytics" element={<Analytics />} />
