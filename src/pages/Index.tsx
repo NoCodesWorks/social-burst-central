@@ -6,8 +6,9 @@ export default function Index() {
   const navigate = useNavigate();
   
   useEffect(() => {
-    navigate("/dashboard");
+    // Redirect to auth page instead of dashboard
+    navigate("/auth");
   }, [navigate]);
   
-  return <div>Redirecting to dashboard...</div>;
+  return <div>Redirecting to sign in...</div>;
 }

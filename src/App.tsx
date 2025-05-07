@@ -12,6 +12,8 @@ import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 import CreatePost from "./pages/CreatePost";
 import NotFound from "./pages/NotFound";
+import Auth from "./pages/Auth";
+import CustomizeDashboard from "./pages/CustomizeDashboard";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +24,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/customize-dashboard" element={<CustomizeDashboard />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Index />} />
             <Route path="dashboard" element={<Dashboard />} />
