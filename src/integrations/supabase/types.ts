@@ -9,7 +9,221 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      email_campaigns: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          name: string
+          recipient_list_id: string | null
+          scheduled_for: string | null
+          sent_at: string | null
+          stats: Json | null
+          status: string
+          subject: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          name: string
+          recipient_list_id?: string | null
+          scheduled_for?: string | null
+          sent_at?: string | null
+          stats?: Json | null
+          status?: string
+          subject: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          name?: string
+          recipient_list_id?: string | null
+          scheduled_for?: string | null
+          sent_at?: string | null
+          stats?: Json | null
+          status?: string
+          subject?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      email_lists: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          subscriber_count: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          subscriber_count?: number | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          subscriber_count?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      posts: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          image_url: string | null
+          performance: Json | null
+          platforms: string[] | null
+          scheduled_for: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          performance?: Json | null
+          platforms?: string[] | null
+          scheduled_for?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          performance?: Json | null
+          platforms?: string[] | null
+          scheduled_for?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string
+          id: string
+          name: string | null
+          theme: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email: string
+          id: string
+          name?: string | null
+          theme?: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string | null
+          theme?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      social_accounts: {
+        Row: {
+          access_token: string
+          account_name: string
+          created_at: string
+          expires_at: string | null
+          id: string
+          is_connected: boolean | null
+          platform: string
+          refresh_token: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          access_token: string
+          account_name: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_connected?: boolean | null
+          platform: string
+          refresh_token?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          access_token?: string
+          account_name?: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_connected?: boolean | null
+          platform?: string
+          refresh_token?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      subscribers: {
+        Row: {
+          created_at: string
+          email: string
+          first_name: string | null
+          id: string
+          last_name: string | null
+          list_id: string
+          metadata: Json | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          list_id: string
+          metadata?: Json | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          list_id?: string
+          metadata?: Json | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscribers_list_id_fkey"
+            columns: ["list_id"]
+            isOneToOne: false
+            referencedRelation: "email_lists"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

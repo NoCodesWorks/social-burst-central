@@ -30,10 +30,25 @@ export default function SignUpForm({ setError, error }: SignUpFormProps) {
       return;
     }
     
+    if (!authData.email) {
+      setError("Please enter your email");
+      return;
+    }
+    
+    if (!authData.password) {
+      setError("Please enter a password");
+      return;
+    }
+    
+    if (authData.password.length < 8) {
+      setError("Password must be at least 8 characters");
+      return;
+    }
+    
     try {
       await signUp(authData.email, authData.password, authData.name);
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || "Failed to create account");
     }
   };
 

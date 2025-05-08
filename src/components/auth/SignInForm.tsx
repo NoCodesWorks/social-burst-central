@@ -24,10 +24,15 @@ export default function SignInForm({ setError, error }: SignInFormProps) {
     e.preventDefault();
     setError(null);
     
+    if (!authData.email || !authData.password) {
+      setError("Please fill in all fields");
+      return;
+    }
+    
     try {
       await signIn(authData.email, authData.password);
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || "Failed to sign in");
     }
   };
 
