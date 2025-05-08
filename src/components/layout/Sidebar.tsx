@@ -11,7 +11,8 @@ import {
   Facebook,
   Instagram,
   Twitter,
-  Youtube
+  Youtube,
+  Mail
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -27,6 +28,7 @@ export default function Sidebar({ isMobile, isOpen }: SidebarProps) {
     { name: "Dashboard", path: "/dashboard", icon: Home },
     { name: "Calendar", path: "/calendar", icon: Calendar },
     { name: "Analytics", path: "/analytics", icon: BarChart2 },
+    { name: "Email Marketing", path: "/email-marketing", icon: Mail },
     { name: "Settings", path: "/settings", icon: Settings },
   ];
 

@@ -1,117 +1,50 @@
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, Mail } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function Auth() {
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const { signIn, signUp, loading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const [currentStep, setCurrentStep] = useState<"auth" | "verification">("auth");
-  const [verificationCode, setVerificationCode] = useState("");
   const [authData, setAuthData] = useState({
     email: "",
     password: "",
     name: "",
   });
+  const [error, setError] = useState<string | null>(null);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    // Here we would typically connect to a backend for actual auth
-    // For now, we'll simulate the verification email flow
-    setTimeout(() => {
-      setIsLoading(false);
-      setCurrentStep("verification");
-      toast({
-        title: "Verification code sent!",
-        description: "Please check your email for the verification code.",
-      });
-    }, 1500);
+    setError(null);
+    
+    if (!authData.name) {
+      setError("Please enter your name");
+      return;
+    }
+    
+    try {
+      await signUp(authData.email, authData.password, authData.name);
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    // Simulate authentication
-    setTimeout(() => {
-      setIsLoading(false);
-      toast({
-        title: "Successfully signed in!",
-        description: "Welcome back to SocialBurst.",
-      });
-      navigate("/dashboard");
-    }, 1500);
+    setError(null);
+    
+    try {
+      await signIn(authData.email, authData.password);
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
-
-  const verifyAccount = () => {
-    setIsLoading(true);
-
-    // Simulate verification
-    setTimeout(() => {
-      setIsLoading(false);
-      toast({
-        title: "Account verified!",
-        description: "Your email has been verified successfully.",
-      });
-      navigate("/customize-dashboard");
-    }, 1500);
-  };
-
-  if (currentStep === "verification") {
-    return (
-      <div className="container flex h-screen flex-col items-center justify-center">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle>Verify Your Email</CardTitle>
-            <CardDescription>
-              We've sent a code to {authData.email}. Please enter it below to verify your account.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label>Verification Code</Label>
-                <InputOTP maxLength={6} value={verificationCode} onChange={setVerificationCode}>
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
-                  </InputOTPGroup>
-                </InputOTP>
-                <p className="text-sm text-gray-500">
-                  Didn't receive a code? <Button variant="link" className="p-0 h-auto">Resend</Button>
-                </p>
-              </div>
-              <Button
-                className="w-full"
-                onClick={verifyAccount}
-                disabled={verificationCode.length !== 6 || isLoading}
-              >
-                {isLoading ? "Verifying..." : "Verify Account"}
-              </Button>
-              <Button variant="outline" className="w-full" onClick={() => setCurrentStep("auth")}>
-                Go Back
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
 
   return (
     <div className="container flex h-screen flex-col items-center justify-center">
@@ -121,6 +54,12 @@ export default function Auth() {
           <CardDescription>Manage all your social media posts in one place.</CardDescription>
         </CardHeader>
         <CardContent>
+          {error && (
+            <Alert className="mb-4 bg-destructive/15 text-destructive">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+          
           <Tabs defaultValue="signin" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="signin">Sign In</TabsTrigger>
@@ -169,8 +108,8 @@ export default function Auth() {
                     />
                   </div>
                 </div>
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? "Signing in..." : "Sign In"}
+                <Button type="submit" className="w-full" disabled={loading}>
+                  {loading ? "Signing in..." : "Sign In"}
                 </Button>
               </form>
             </TabsContent>
@@ -223,8 +162,8 @@ export default function Auth() {
                   </div>
                   <p className="text-sm text-gray-500">Password must be at least 8 characters</p>
                 </div>
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? "Creating account..." : "Create Account"}
+                <Button type="submit" className="w-full" disabled={loading}>
+                  {loading ? "Creating account..." : "Create Account"}
                 </Button>
               </form>
             </TabsContent>
