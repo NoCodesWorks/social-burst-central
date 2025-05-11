@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Edit, Trash, Send } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import supabase from "@/lib/supabase";
 import { format } from "date-fns";
 import { toast } from "sonner";
 

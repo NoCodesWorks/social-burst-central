@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { Mail, Plus, Users } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import supabase from "@/lib/supabase";
 import { Skeleton } from "@/components/ui/skeleton";
 import EmailLists from "@/components/email/EmailLists";
 import EmailCampaigns from "@/components/email/EmailCampaigns";

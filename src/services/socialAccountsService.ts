@@ -1,4 +1,5 @@
-import { supabase } from '@/lib/supabase';
+
+import supabase from '@/lib/supabase';
 import { toast } from 'sonner';
 
 export type Platform = 'facebook' | 'instagram' | 'twitter' | 'youtube';

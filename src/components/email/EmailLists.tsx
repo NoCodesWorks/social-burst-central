@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Plus, Trash, Upload } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import supabase from "@/lib/supabase";
 
 interface EmailListsProps {
   userId: string | undefined;

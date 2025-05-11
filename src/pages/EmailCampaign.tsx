@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAuth } from "@/contexts/AuthContext";
-import { supabase } from "@/lib/supabase";
+import supabase from "@/lib/supabase";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Calendar } from "@/components/ui/calendar";
