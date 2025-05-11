@@ -23,7 +23,16 @@ export const getUserSocialAccounts = async (userId: string): Promise<SocialAccou
       throw error;
     }
     
-    return data || [];
+    // Ensure each account has a valid platform type
+    const typedAccounts: SocialAccount[] = data?.map(account => ({
+      id: account.id,
+      platform: account.platform as Platform,
+      account_name: account.account_name,
+      is_connected: account.is_connected,
+      created_at: account.created_at
+    })) || [];
+    
+    return typedAccounts;
   } catch (error: any) {
     console.error('Error fetching social accounts:', error);
     toast.error('Failed to load social accounts');
@@ -65,7 +74,17 @@ export const connectSocialAccount = async (
         .select();
         
       if (error) throw error;
-      return data ? data[0] : null;
+      
+      if (data && data[0]) {
+        return {
+          id: data[0].id,
+          platform: data[0].platform as Platform,
+          account_name: data[0].account_name,
+          is_connected: data[0].is_connected,
+          created_at: data[0].created_at
+        };
+      }
+      return null;
     } 
     // Otherwise, create a new one
     else {
@@ -83,7 +102,17 @@ export const connectSocialAccount = async (
         .select();
         
       if (error) throw error;
-      return data ? data[0] : null;
+      
+      if (data && data[0]) {
+        return {
+          id: data[0].id,
+          platform: data[0].platform as Platform,
+          account_name: data[0].account_name,
+          is_connected: data[0].is_connected,
+          created_at: data[0].created_at
+        };
+      }
+      return null;
     }
   } catch (error: any) {
     console.error(`Error connecting ${platform} account:`, error);
